@@ -1,3 +1,3 @@
 def call(Map parameters = [:]) {
-    print("checkout")
+    print("deploy")
 }
