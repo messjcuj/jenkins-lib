@@ -1,5 +1,7 @@
 package com.ecom
 
+import groovy.json.JsonSlurper
+
 class PipelineHelper implements Serializable {
 
     static void getDefaultAgents() {
