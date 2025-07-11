@@ -5,14 +5,14 @@ import groovy.json.JsonSlurper
 class PipelineHelper implements Serializable {
 
     static void getDefaultAgents() {
-        def jsonText = script.readFile(jsonFilePath)
-        def json = new JsonSlurper().parseText(jsonText)
-        return json.default_agent_label
+        def jsonStream = script.libraryResource("settings.json")
+        def json = new JsonSlurper().parseText(jsonStream)
+        return json["default_agent_label"]
     }
 
     static void getAgents() {
-        def jsonText = script.readFile(jsonFilePath)
-        def json = new JsonSlurper().parseText(jsonText)
-        return json.agent_label
+        def jsonStream = script.libraryResource("settings.json")
+        def json = new JsonSlurper().parseText(jsonStream)
+        return json["agent_label"]
     }
 }
