@@ -14,7 +14,7 @@ def call(Map parameters = [:]) {
     }
 
     for (repo in globalConfig.repos) {
-        parallelSteps["Build ${repo}"] = {
+        parallelSteps["${env.STAGE_NAME} ${repo}"] = {
             withEnv([
                 "JAVA_HOME=${javaHome}",
                 "GRADLE_HOME=${gradleHome}",
