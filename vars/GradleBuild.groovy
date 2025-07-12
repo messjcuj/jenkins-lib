@@ -21,7 +21,7 @@ def call(Map parameters = [:]) {
     }
 
 
-   parameters.script.withEnv([
+   steps.withEnv([
        "JAVA_HOME=${javaHome}",
         "GRADLE_HOME=${gradleHome}",
        "PATH=${javaHome}/bin:${gradleHome}/bin:${env.PATH}"
