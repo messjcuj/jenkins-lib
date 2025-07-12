@@ -35,7 +35,7 @@ def call(Map parameters = [:]) {
     for (repo in globalConfig.repos) {
         parallelSteps[repo] = {
             def command = "gradle clean build -Dorg.gradle.java.home=${javaHome} ${parameters.global_arguments}"
-            buildCommand(repo, command)
+            //buildCommand(repo, command)
         }
     }
     parallel parallelSteps
