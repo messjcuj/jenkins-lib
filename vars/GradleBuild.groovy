@@ -9,7 +9,7 @@ def call(Map parameters = [:]) {
     def settings = PipelineHelper.getSettings(parameters.script)
     //def javaHome = settings.jdk_home[parameters.jdk_version]
     //def gradleHome = settings.gradle_home[parameters.gradle_version]
-steps.script {
+
     def javaHome = tool name: 'JDK_21', type: 'jdk'
     def gradleHome = tool name: 'Gradle_8', type: 'gradle'
 
@@ -20,25 +20,25 @@ steps.script {
         throw Exception("Gradle ${parameters.gradle_version} is not supported")
     }
 
-    withEnv([
-        "JAVA_HOME=/opt/jen",
-        "GRADLE_HOME=tes",
-        "PATH=asdsa/bin:asd/bin:${env.PATH}"
-    ]) {
-        sh 'java -version'
-        sh 'gradle --version'
-    }
-}
-    env.JAVA_HOME = javaHome
-    env.PATH = "${javaHome}/bin:${gradleHome}/bin:${env.PATH}"
+//    withEnv([
+//        "JAVA_HOME=/opt/jen",
+//        "GRADLE_HOME=tes",
+//        "PATH=asdsa/bin:asd/bin:${env.PATH}"
+//    ]) {
+//        sh 'java -version'
+//        sh 'gradle --version -Dorg.gradle.java.home=/pat'
+//    }
+//}
+//    env.JAVA_HOME = javaHome
+    env.PATH = "${gradleHome}/bin:${env.PATH}"
 
     for (repo in globalConfig.repos) {
-        //parallelSteps[repo] = {
-            def command = "gradle clean build ${parameters.global_arguments}"
+        parallelSteps[repo] = {
+            def command = "gradle clean build -Dorg.gradle.java.home=${javaHome} ${parameters.global_arguments}"
             buildCommand(repo, command)
-        //}
+        }
     }
-    //parallel parallelSteps
+    parallel parallelSteps
 }
 
 void buildCommand(def repo, def command) {
