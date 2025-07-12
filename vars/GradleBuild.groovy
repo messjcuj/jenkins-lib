@@ -21,13 +21,13 @@ def call(Map parameters = [:]) {
     }
 
 
-   steps.withEnv([
+   parameters.script.withEnv([
        "JAVA_HOME=${javaHome}",
         "GRADLE_HOME=${gradleHome}",
        "PATH=${javaHome}/bin:${gradleHome}/bin:${env.PATH}"
     ]) {
-       steps.sh 'java -version'
-       steps.sh 'gradle --version -Dorg.gradle.java.home=/pat'
+       parameters.script.sh 'java -version'
+       parameters.script.sh 'gradle --version -Dorg.gradle.java.home=/pat'
     }
 
 //    env.JAVA_HOME = javaHome
