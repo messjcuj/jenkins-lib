@@ -10,7 +10,7 @@ def call(Map parameters = [:]) {
     //def javaHome = settings.jdk_home[parameters.jdk_version]
     //def gradleHome = settings.gradle_home[parameters.gradle_version]
 
-def javaHome = tool name: 'JDK_21', type: 'jdk'
+    def javaHome = tool name: 'JDK_21', type: 'jdk'
     def gradleHome = tool name: 'Gradle_8', type: 'gradle'
 
     if (!javaHome) {
@@ -20,7 +20,7 @@ def javaHome = tool name: 'JDK_21', type: 'jdk'
         throw Exception("Gradle ${parameters.gradle_version} is not supported")
     }
 
-    parameters.script.withEnv([
+    steps.withEnv([
         "JAVA_HOME=${javaHome}",
         "GRADLE_HOME=${gradleHome}",
         "PATH=${javaHome}/bin:${gradleHome}/bin:${env.PATH}"
