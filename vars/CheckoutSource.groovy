@@ -20,9 +20,11 @@ def checkoutBranch(def branch, def url, def credentialsId) {
     checkout([
         $class: 'GitSCM',
         branches: [[name: "*/${branch}"]],
+        doGenerateSubmoduleConfigurations: false,
+        extensions: [],
         userRemoteConfigs: [[
-        url: "${url}",
-        credentialsId: "${credentialsId}"
+            url: "${url}",
+            credentialsId: "${credentialsId}"
         ]]
     ])
     println("DEBUG: checkout branch: ${branch}")
