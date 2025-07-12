@@ -5,13 +5,13 @@ def agentLabel = PipelineHelper.getSettings(this)["default_agent_label"]
 
 def call(Map parameters = [:]) {
     def globalConfig = parameters.script.globalConfig
+    def settings = parameters.script.settings
     def parallelSteps = [:]
-    //def settings = PipelineHelper.getSettings(parameters.script)
-//    def javaHome = settings.jdk_home[parameters.jdk_version]
-//    def gradleHome = settings.gradle_home[parameters.gradle_version]
+    def javaHome = settings.jdk_home[parameters.jdk_version]
+    def gradleHome = settings.gradle_home[parameters.gradle_version]
 
-    def javaHome = parameters.script.tool name: 'JDK_21', type: 'jdk'
-    def gradleHome = parameters.script.tool name: 'Gradle_8', type: 'gradle'
+//    def javaHome = tool name: 'JDK_21', type: 'jdk'
+//    def gradleHome = tool name: 'Gradle_8', type: 'gradle'
 
     if (!javaHome) {
         throw Exception("JDK ${parameters.jdk_version} is not supported")
@@ -35,7 +35,7 @@ def call(Map parameters = [:]) {
 
     for (repo in globalConfig.repos) {
         parallelSteps[repo] = {
-            def command = "${gradleHome}/gradle clean build -Dorg.gradle.java.home=${javaHome} ${parameters.global_arguments}"
+            def command = "gradle clean build ${parameters.global_arguments}"
             buildCommand(repo, command)
         }
     }
