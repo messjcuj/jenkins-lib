@@ -27,7 +27,7 @@ def call(Map parameters = [:]) {
                 def command = "gradle clean build ${parameters.global_arguments}"
                 println("DEBUG: ${repo}")
                 println("DEBUG: ${command}")
-                sh "java --version && gradle --version && cd ${env.WORKSPACE}/${repo} &&  ${command}"
+                sh "java --version && cd ${env.WORKSPACE}/${repo} &&  ${command}"
             }
         }
     }
