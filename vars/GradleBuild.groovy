@@ -7,8 +7,8 @@ def call(Map parameters = [:]) {
     def globalConfig = parameters.script.globalConfig
     def parallelSteps = [:]
     def settings = PipelineHelper.getSettings(parameters.script)
-    def javaHome = settings.jdk[parameters.jdk_version]
-    def gradleHome = settings.gradle[parameters.gradle_version]
+    def javaHome = settings.jdk_home[parameters.jdk_version]
+    def gradleHome = settings.gradle_home[parameters.gradle_version]
 
     if (!javaHome) {
         throw Exception("JDK ${parameters.jdk_version} is not supported")

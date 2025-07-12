@@ -4,10 +4,10 @@
         "agent-1",
         "agent-2"
     ],
-    "jdk_path": {
+    "jdk_home": {
         "21": "/opt/java/jdk-21.0.7"
     },
-    "gradle_path": {
+    "gradle_home": {
         "8": "/opt/gradle/gradle-8.14.3"
     }
 }
