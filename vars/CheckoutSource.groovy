@@ -5,7 +5,7 @@ def call(Map parameters = [:]) {
 
     if (!globalConfig.isSubmodules) {
         for (repo in globalConfig.repos) {
-            parallelSteps[repo] = {
+            parallelSteps["Checkout ${repo}"] = {
                 checkoutBranch(globalConfig.targetBranch, globalConfig.remoteUrl, repo, globalConfig.repoCredentialId)
             }
         }
