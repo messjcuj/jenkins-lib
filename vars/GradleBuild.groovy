@@ -4,7 +4,6 @@ import com.ecom.PipelineGlobalConfig
 def agentLabel = PipelineHelper.getSettings(this)["default_agent_label"]
 
 def call(Map parameters = [:]) {
-    parameters.script.node {
     def globalConfig = parameters.script.globalConfig
     def parallelSteps = [:]
     def settings = PipelineHelper.getSettings(parameters.script)
@@ -40,7 +39,7 @@ def call(Map parameters = [:]) {
             buildCommand(repo, command)
         }
     }
-    }
+    parallel parallelSteps
 }
 
 void buildCommand(def repo, def command) {
