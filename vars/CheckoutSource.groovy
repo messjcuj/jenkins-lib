@@ -16,6 +16,7 @@ def call(Map parameters = [:]) {
 }
 
 def checkoutBranch(def branch, def url, def repoName, def credentialsId) {
+    echo "Checkout"
     checkout([
         $class: 'GitSCM',
         branches: [[name: "*/${branch}"]],
