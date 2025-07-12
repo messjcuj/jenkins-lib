@@ -4,13 +4,13 @@ import groovy.json.JsonSlurper
 
 class PipelineGlobalConfig implements Serializable {
 
-    String targetBranch = ""
-    List<String> repos = []
-    String remoteUrl = "",
-    String repoCredentialId = ""
-    boolean isFeatureBranch = false
-    boolean isSubmodules = false
-    String rootModuleRepo = ""
-    List<String> submodulesRepos = []
+    def targetBranch = ""
+    def repos = []
+    def remoteUrl = ""
+    def repoCredentialId = ""
+    def isFeatureBranch = false
+    def isSubmodules = false
+    def rootModuleRepo = ""
+    def submodulesRepos = []
 
 }
