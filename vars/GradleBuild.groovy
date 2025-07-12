@@ -22,13 +22,14 @@ def call(Map parameters = [:]) {
 print(javaHome)
 print(gradleHome)
 
-   withEnv([
+
+        for (repo in globalConfig.repos) {
+            parallelSteps[repo] = {
+                   withEnv([
         "JAVA_HOME=${javaHome}",
         "GRADLE_HOME=${gradleHome}",
         "PATH=${javaHome}/bin:${gradleHome}/bin:${env.PATH}"
     ]) {
-        for (repo in globalConfig.repos) {
-            parallelSteps[repo] = {
                 def command = "gradle clean build ${parameters.global_arguments}"
                 println("DEBUG: ${repo}")
                 println("DEBUG: ${command}")
