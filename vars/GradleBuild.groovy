@@ -9,7 +9,7 @@ def call(Map parameters = [:]) {
     def settings = PipelineHelper.getSettings(parameters.script)
     //def javaHome = settings.jdk_home[parameters.jdk_version]
     //def gradleHome = settings.gradle_home[parameters.gradle_version]
-
+steps.script {
     def javaHome = tool name: 'JDK_21', type: 'jdk'
     def gradleHome = tool name: 'Gradle_8', type: 'gradle'
 
@@ -28,7 +28,7 @@ def call(Map parameters = [:]) {
         sh 'java -version'
         sh 'gradle --version'
     }
-
+}
     env.JAVA_HOME = javaHome
     env.PATH = "${javaHome}/bin:${gradleHome}/bin:${env.PATH}"
 
