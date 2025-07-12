@@ -20,14 +20,15 @@ def call(Map parameters = [:]) {
         throw Exception("Gradle ${parameters.gradle_version} is not supported")
     }
 
-//    withEnv([
-//        "JAVA_HOME=${javaHome}",
-//        "GRADLE_HOME=${gradleHome}",
-//        "PATH=${javaHome}/bin:${gradleHome}/bin:${env.PATH}"
-//    ]) {
-//        sh 'java -version'
-//        sh 'gradle --version -Dorg.gradle.java.home=/pat'
-//    }
+
+   parameters.script.withEnv([
+       "JAVA_HOME=${javaHome}",
+        "GRADLE_HOME=${gradleHome}",
+       "PATH=${javaHome}/bin:${gradleHome}/bin:${env.PATH}"
+    ]) {
+       sh 'java -version'
+       sh 'gradle --version -Dorg.gradle.java.home=/pat'
+    }
 
 //    env.JAVA_HOME = javaHome
 //    env.PATH = "${gradleHome}/bin:${env.PATH}"
