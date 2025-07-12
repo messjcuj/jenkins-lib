@@ -7,8 +7,8 @@ def call(Map parameters = [:]) {
     def globalConfig = parameters.script.globalConfig
     def parallelSteps = [:]
     def settings = PipelineHelper.getSettings(parameters.script)
-    //def javaHome = settings.jdk_home[parameters.jdk_version]
-    //def gradleHome = settings.gradle_home[parameters.gradle_version]
+    def javaHome = settings.jdk_home[parameters.jdk_version]
+    def gradleHome = settings.gradle_home[parameters.gradle_version]
 
     //def javaHome = tool name: 'JDK_21', type: 'jdk'
     //def gradleHome = tool name: 'Gradle_8', type: 'gradle'
@@ -20,15 +20,15 @@ def call(Map parameters = [:]) {
         throw Exception("Gradle ${parameters.gradle_version} is not supported")
     }
 
-//    withEnv([
-//        "JAVA_HOME=/opt/jen",
-//        "GRADLE_HOME=tes",
-//        "PATH=asdsa/bin:asd/bin:${env.PATH}"
-//    ]) {
-//        sh 'java -version'
-//        sh 'gradle --version -Dorg.gradle.java.home=/pat'
-//    }
-//}
+    withEnv([
+        "JAVA_HOME=${javaHome}",
+        "GRADLE_HOME=${gradleHome}",
+        "PATH=${javaHome}/bin:${gradleHome}/bin:${env.PATH}"
+    ]) {
+        sh 'java -version'
+        sh 'gradle --version -Dorg.gradle.java.home=/pat'
+    }
+
 //    env.JAVA_HOME = javaHome
 //    env.PATH = "${gradleHome}/bin:${env.PATH}"
 
