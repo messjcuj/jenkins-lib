@@ -7,21 +7,23 @@ def call(Map parameters = [:]) {
     
     if (!globalConfig.isSubmodules) {
         for (repo in globalConfig.repos) {
-                checkoutBranch(globalConfig.targetBranch, "${globalConfig.remoteUrl}/${repo}", globalConfig.repoCredentialId)
+                checkoutBranch(globalConfig.targetBranch, globalConfig.remoteUrl, repo, globalConfig.repoCredentialId)
         }      
     } else {
         checkoutSubModules(globalConfig.targetBranch, "${globalConfig.remoteUrl}/${globalConfig.rootModuleRepo}", globalConfig.repoCredentialId)
     } 
 }
 
-def checkoutBranch(def branch, def url, def credentialsId) {
+def checkoutBranch(def branch, def url, def repoName, def credentialsId) {
     checkout([
         $class: 'GitSCM',
         branches: [[name: "*/${branch}"]],
         doGenerateSubmoduleConfigurations: false,
-        extensions: [],
+        extensions: [
+            [$class: 'RelativeTargetDirectory', relativeTargetDir: repoName]
+        ],
         userRemoteConfigs: [[
-            url: "${url}",
+            url: "${globalConfig.remoteUrl}/${repo}",
             credentialsId: "${credentialsId}"
         ]]
     ])
