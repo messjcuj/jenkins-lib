@@ -16,6 +16,8 @@ def call(Map parameters = [:]) {
         throw Exception("Gradle ${parameters.gradle_version} is not supported")
     }
 
+print(javaHome)
+print(gradleHome)
 
    withEnv([
         "JAVA_HOME=${javaHome}",
