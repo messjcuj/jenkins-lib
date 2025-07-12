@@ -30,7 +30,7 @@ def call(Map parameters = [:]) {
 //    }
 //}
 //    env.JAVA_HOME = javaHome
-    env.PATH = "${gradleHome}/bin:${env.PATH}"
+//    env.PATH = "${gradleHome}/bin:${env.PATH}"
 
     for (repo in globalConfig.repos) {
         parallelSteps[repo] = {
