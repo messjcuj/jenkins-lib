@@ -9,9 +9,6 @@ def call(Map parameters = [:]) {
     def javaHome = globalConfig.jdkHome[parameters.jdk_version]
     def gradleHome = globalConfig.gradleHome[parameters.gradle_version]
 
-//    def javaHome = tool name: 'JDK_21', type: 'jdk'
-//    def gradleHome = tool name: 'Gradle_8', type: 'gradle'
-
     if (!javaHome) {
         throw Exception("JDK ${parameters.jdk_version} is not supported")
     }
@@ -25,17 +22,11 @@ def call(Map parameters = [:]) {
         "GRADLE_HOME=${gradleHome}",
        "PATH=${javaHome}/bin:${gradleHome}/bin:${env.PATH}"
     ]) {
-       sh 'java -version'
-       sh 'gradle --version -Dorg.gradle.java.home=/pat'
-    }
-
-//    env.JAVA_HOME = javaHome
-//    env.PATH = "${gradleHome}/bin:${env.PATH}"
-
-    for (repo in globalConfig.repos) {
-        parallelSteps[repo] = {
-            def command = "gradle clean build ${parameters.global_arguments}"
-            buildCommand(repo, command)
+        for (repo in globalConfig.repos) {
+            parallelSteps[repo] = {
+                def command = "gradle clean build ${parameters.global_arguments}"
+                buildCommand(repo, command)
+            }
         }
     }
     parallel parallelSteps
