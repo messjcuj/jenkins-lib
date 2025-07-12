@@ -17,16 +17,16 @@ def call(Map parameters = [:]) {
         throw Exception("Gradle ${parameters.gradle_version} is not supported")
     }
 
-    //env.JAVA_HOME = javaHome
+    env.JAVA_HOME = javaHome
     env.PATH = "${javaHome}/bin:${gradleHome}/bin:${env.PATH}"
 
     for (repo in globalConfig.repos) {
-        parallelSteps[repo] = {
+        //parallelSteps[repo] = {
             def command = "gradle clean build ${parameters.global_arguments}"
             buildCommand(repo, command)
-        }
+        //}
     }
-    parallel parallelSteps
+    //parallel parallelSteps
 }
 
 void buildCommand(def repo, def command) {
