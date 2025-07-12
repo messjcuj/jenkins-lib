@@ -12,7 +12,7 @@ def call(Map parameters = [:]) {
             )
         }      
     } else {
-        checkoutSubModules(globalConfig.targetBranch, "${globalConfig.remoteUrl}/${globalConfig.rootModuleRepo}", globalConfig.repoCredentialId)
+        //checkoutSubModules(globalConfig.targetBranch, "${globalConfig.remoteUrl}/${globalConfig.rootModuleRepo}", globalConfig.repoCredentialId)
     } 
 }
 
