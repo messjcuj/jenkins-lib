@@ -1,14 +1,15 @@
-import groovy.json.JsonSlurper
-import com.ecom.PipelineHelper
-
 def call(Map parameters = [:]) {
     script = parameters.script
     globalConfig = script.globalConfig
-    
+    def parallelSteps = [:]
+
     if (!globalConfig.isSubmodules) {
         for (repo in globalConfig.repos) {
+            parallelSteps[repo] = {
                 checkoutBranch(globalConfig.targetBranch, globalConfig.remoteUrl, repo, globalConfig.repoCredentialId)
-        }      
+            }
+        }
+        parallel parallelSteps      
     } else {
         checkoutSubModules(globalConfig.targetBranch, "${globalConfig.remoteUrl}/${globalConfig.rootModuleRepo}", globalConfig.repoCredentialId)
     } 
