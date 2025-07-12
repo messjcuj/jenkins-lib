@@ -26,8 +26,8 @@ def call(Map parameters = [:]) {
         "GRADLE_HOME=${gradleHome}",
        "PATH=${javaHome}/bin:${gradleHome}/bin:${env.PATH}"
     ]) {
-       sh 'java -version'
-       sh 'gradle --version -Dorg.gradle.java.home=/pat'
+       steps.sh 'java -version'
+       steps.sh 'gradle --version -Dorg.gradle.java.home=/pat'
     }
 
 //    env.JAVA_HOME = javaHome
