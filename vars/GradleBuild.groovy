@@ -6,7 +6,7 @@ def agentLabel = PipelineHelper.getSettings(this)["default_agent_label"]
 def call(Map parameters = [:]) {
     def globalConfig = parameters.script.globalConfig
     def parallelSteps = [:]
-    def settings = PipelineHelper.getSettings(parameters.script)
+    //def settings = PipelineHelper.getSettings(parameters.script)
 //    def javaHome = settings.jdk_home[parameters.jdk_version]
 //    def gradleHome = settings.gradle_home[parameters.gradle_version]
 
