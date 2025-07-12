@@ -17,8 +17,17 @@ def call(Map parameters = [:]) {
         throw Exception("Gradle ${parameters.gradle_version} is not supported")
     }
 
-    //env.JAVA_HOME = javaHome
-    env.PATH = "${gradleHome}/bin:${env.PATH}"
+    withEnv([
+        "JAVA_HOME=${javaHome}",
+        "GRADLE_HOME=${gradleHome}",
+        "PATH=${javaHome}/bin:${gradleHome}/bin:${env.PATH}"
+    ]) {
+        sh 'java -version'
+        sh 'gradle --version'
+    }
+
+    env.JAVA_HOME = javaHome
+    env.PATH = "${javaHome}/bin:${gradleHome}/bin:${env.PATH}"
 
     for (repo in globalConfig.repos) {
         //parallelSteps[repo] = {
