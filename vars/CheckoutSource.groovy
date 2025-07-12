@@ -14,8 +14,8 @@ def call(Map parameters = [:]) {
     } 
 }
 
-def checkoutBranch(def script, def branch, def url, def credentialsId) {
-    script.checkout([
+def checkoutBranch(def branch, def url, def credentialsId) {
+    checkout([
         $class: 'GitSCM',
         branches: [[name: "*/${branch}"]],
         doGenerateSubmoduleConfigurations: false,
@@ -29,8 +29,8 @@ def checkoutBranch(def script, def branch, def url, def credentialsId) {
     println("DEBUG: checkout url: ${url}")
 }
 
-def checkoutSubModules(def script, def branch, def url, def credentialsId) {
-    script.checkout([
+def checkoutSubModules(def branch, def url, def credentialsId) {
+    checkout([
         $class: 'GitSCM',
         branches: [[name: "*/${branch}"]],
         userRemoteConfigs: [[
