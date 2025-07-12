@@ -8,15 +8,16 @@ def call(Map parameters = [:]) {
     if (!globalConfig.isSubmodules) {
         for (repo in globalConfig.repos) {
             parallel(
-                checkoutBranch(globalConfig.targetBranch, "${globalConfig.remoteUrl}/${repo}", globalConfig.repoCredentialId)
+                checkoutBranch(script, globalConfig.targetBranch, "${globalConfig.remoteUrl}/${repo}", globalConfig.repoCredentialId)
             )
         }      
     } else {
-        checkoutSubModules(globalConfig.targetBranch, "${globalConfig.remoteUrl}/${globalConfig.rootModuleRepo}", globalConfig.repoCredentialId)
+        checkoutSubModules(script, globalConfig.targetBranch, "${globalConfig.remoteUrl}/${globalConfig.rootModuleRepo}", globalConfig.repoCredentialId)
     } 
 }
 
-def checkoutBranch(def branch, def url, def credentialsId) {
+def checkoutBranch(def script, def branch, def url, def credentialsId) {
+    script {
     checkout([
         $class: 'GitSCM',
         branches: [[name: "*/${branch}"]],
@@ -27,11 +28,13 @@ def checkoutBranch(def branch, def url, def credentialsId) {
             credentialsId: "${credentialsId}"
         ]]
     ])
+    }
     println("DEBUG: checkout branch: ${branch}")
     println("DEBUG: checkout url: ${url}")
 }
 
-def checkoutSubModules(def branch, def url, def credentialsId) {
+def checkoutSubModules(def script, def branch, def url, def credentialsId) {
+        script {
     checkout([
         $class: 'GitSCM',
         branches: [[name: "*/${branch}"]],
@@ -48,6 +51,7 @@ def checkoutSubModules(def branch, def url, def credentialsId) {
             timeout: 10
         ]]
     ])
+        }
     println("DEBUG: checkout branch: ${branch}")
     println("DEBUG: checkout url: ${url}")
 }
