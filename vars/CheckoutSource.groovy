@@ -1,6 +1,6 @@
 def call(Map parameters = [:]) {
-    script = parameters.script
-    globalConfig = script.globalConfig
+    def script = parameters.script
+    def globalConfig = script.globalConfig
     def parallelSteps = [:]
 
     if (!globalConfig.isSubmodules) {
