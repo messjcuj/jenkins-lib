@@ -23,8 +23,8 @@ def checkoutBranch(def branch, def url, def repoName, def credentialsId) {
             [$class: 'RelativeTargetDirectory', relativeTargetDir: repoName]
         ],
         userRemoteConfigs: [[
-            url: "${url}/${repo}",
-            credentialsId: "${credentialsId}"
+            url: "${url}/${repoName}",
+            credentialsId: credentialsId
         ]]
     ])
     println("DEBUG: checkout branch: ${branch}")
