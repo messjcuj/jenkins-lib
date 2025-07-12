@@ -21,9 +21,9 @@ def call(Map parameters = [:]) {
     }
 
     steps.withEnv([
-        "JAVA_HOME=${javaHome}",
-        "GRADLE_HOME=${gradleHome}",
-        "PATH=${javaHome}/bin:${gradleHome}/bin:${env.PATH}"
+        "JAVA_HOME=/opt/jen",
+        "GRADLE_HOME=tes",
+        "PATH=asdsa/bin:asd/bin:${env.PATH}"
     ]) {
         sh 'java -version'
         sh 'gradle --version'
