@@ -20,7 +20,7 @@ def javaHome = tool name: 'JDK_21', type: 'jdk'
         throw Exception("Gradle ${parameters.gradle_version} is not supported")
     }
 
-    withEnv([
+    parameters.script.withEnv([
         "JAVA_HOME=${javaHome}",
         "GRADLE_HOME=${gradleHome}",
         "PATH=${javaHome}/bin:${gradleHome}/bin:${env.PATH}"
