@@ -7,9 +7,9 @@ def call(Map parameters = [:]) {
     
     if (!globalConfig.isSubmodules) {
         for (repo in globalConfig.repos) {
-            parallel{
+            parallel(
                 checkoutBranch(globalConfig.targetBranch, "${globalConfig.remoteUrl}/${repo}", globalConfig.repoCredentialId)
-            }
+            )
         }      
     } else {
         checkoutSubModules(globalConfig.targetBranch, "${globalConfig.remoteUrl}/${globalConfig.rootModuleRepo}", globalConfig.repoCredentialId)
