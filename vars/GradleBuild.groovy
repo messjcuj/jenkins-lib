@@ -16,8 +16,11 @@ def call(Map parameters = [:]) {
     if (!gradleHome) {
         throw Exception("Gradle ${parameters.gradle_version} is not supported")
     }
+   
 
-    //env.JAVA_HOME = javaHome
+    println(javaHome)
+    println(gradleHome)
+    env.JAVA_HOME = javaHome
     env.PATH = "${javaHome}/bin:${gradleHome}/bin:${env.PATH}"
 
     for (repo in globalConfig.repos) {
@@ -32,5 +35,5 @@ def call(Map parameters = [:]) {
 void buildCommand(def repo, def command) {
     println("DEBUG: ${repo}")
     println("DEBUG: ${command}")
-    sh "java --version && gradle --version && cd ${env.WORKSPACE}/${repo} &&  ${command}"
+    sh "cd ${env.WORKSPACE}/${repo} &&  ${command}"
 }
