@@ -1,3 +1,7 @@
+import groovy.json.JsonSlurper
+import com.ecom.PipelineHelper
+
 def call(Map parameters = [:]) {
-    print("setup_env")
+    //Cleaning up workspace
+    deleteDir()
 }
