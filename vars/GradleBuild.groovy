@@ -20,7 +20,7 @@ def call(Map parameters = [:]) {
         throw Exception("Gradle ${parameters.gradle_version} is not supported")
     }
 
-    steps.withEnv([
+    withEnv([
         "JAVA_HOME=/opt/jen",
         "GRADLE_HOME=tes",
         "PATH=asdsa/bin:asd/bin:${env.PATH}"
